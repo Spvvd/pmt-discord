@@ -106,15 +106,18 @@ namespace pmt_discord
 
         private static async void HandleClientUp(object sender, ClientUpDownEventArgs e)
         {
+            await _client.SetStatusAsync(UserStatus.Online);
             await _client.SetGameAsync("Server Up");
             Console.WriteLine($"Server is up: {e.Ip} ({e.Ping} ms)");
         }
+
         private static async void HandleClientDown(object sender, ClientUpDownEventArgs e)
         {
             // Notify admin in dms
             var admin = await _client.GetUserAsync(_config.Admin);
             await admin.SendMessageAsync($"Server is down: {e.Ip}");
 
+            await _client.SetStatusAsync(UserStatus.DoNotDisturb);
             await _client.SetGameAsync("Server Down");
             Console.WriteLine($"Server is down: {e.Ip}");
         }
