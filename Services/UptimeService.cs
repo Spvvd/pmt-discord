@@ -36,7 +36,7 @@ namespace pmt_discord
                 var reply = await p.SendPingAsync(this.ip, _timeout);
 
                 ClientUpDownEventArgs e = new ClientUpDownEventArgs();
-                e.Ip = reply.Address;
+                e.Ip = this.ip;
 
                 if (reply.Status == IPStatus.Success)
                 {
@@ -67,7 +67,7 @@ namespace pmt_discord
 
     public class ClientUpDownEventArgs : EventArgs
     {
-        public IPAddress Ip { get; set; }
+        public string Ip { get; set; }
         public long Ping { get; set; }
     }
 }
